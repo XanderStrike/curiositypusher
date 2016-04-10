@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <head>
   <title>Curiosity Board</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
   <style>
-    .chat-area {
-      overflow: scroll;
-    }
+    body { overflow: hidden; }
+    .chat-area { overflow: scroll; }
   </style>
 </head>
 <body>
@@ -13,7 +13,7 @@
   <p class="js-name-area">Chatting as </p>
   <div class="js-chat-area chat-area"></div>
   <form action="/post" class="js-message-form">
-    <input type="text" name="message" class="js-message u-full-width" placeholder="Enter to submit">
+    <input type="text" name="message" class="js-message u-full-width" placeholder="Enter to submit" autocomplete="off">
   </form>
 
   <script src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
@@ -21,16 +21,21 @@
   <script>
     var name = "Human " + Math.floor(Math.random() * 1000).toString();
     $('.js-name-area').append(name);
-    $('.js-chat-area').height($( window ).height() - 200)
 
-    var pusher = new Pusher('18d0e1f96d237f08631c', {
-      encrypted: true
-    });
+    function setHeight() { $('.js-chat-area').height($(window).height() - 170) }
+    $(window).resize(function() { setHeight(); scrollDiv(); });
+    setHeight();
+
+    function scrollDiv() {
+      $('.js-chat-area').scrollTop($('.js-chat-area')[0].scrollHeight);
+    }
+
+    var pusher = new Pusher('18d0e1f96d237f08631c', { encrypted: true });
 
     var channel = pusher.subscribe('curiosity');
     channel.bind('new_message', function(data) {
       $('.js-chat-area').append(data.message + "<br>");
-      $('.js-chat-area').scrollTop($('.js-chat-area')[0].scrollHeight);
+      scrollDiv();
     });
 
     $('.js-message-form').on('submit', function(e) {
