@@ -36,8 +36,8 @@
     $('.js-message-form').on('submit', function(e) {
       e.preventDefault();
       $.get('/post', { message: name + ": " + $('.js-message').val()}).done(function() {
-        $('.js-message').val('');
       });
+      $('.js-message').val('');
     });
   </script>
 </body>
