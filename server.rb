@@ -14,7 +14,7 @@ get '/' do
   send_file 'views/index.html'
 end
 
-get '/post' do
+post '/post' do
   pusher_client.trigger(
     'curiosity',
     'new_message',
