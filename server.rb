@@ -12,8 +12,8 @@ pusher_client = Pusher::Client.new(
 )
 
 get '/' do
-  return send_file 'views/index.html' if params[:pass] == password
-  send_file 'views/pass.html'
+  return send_file 'index.html' if params[:pass] == password
+  'move along'
 end
 
 post '/post' do
