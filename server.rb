@@ -18,7 +18,7 @@ post '/post' do
   pusher_client.trigger(
     'curiosity',
     'new_message',
-    message: params[:message])
+    message: params[:message].gsub('<', '&lt;').gsub('>', '&gt;'))
   slack_client.ping params[:message]
 end
 
