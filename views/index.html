@@ -19,6 +19,8 @@
   <script src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
   <script src="https://js.pusher.com/3.0/pusher.min.js"></script>
   <script>
+    var pass = window.location.href.slice(window.location.href.indexOf('=') + 1);
+
     var name = "Human " + Math.floor(Math.random() * 1000).toString();
     $('.js-name-area').append(name);
 
@@ -40,7 +42,9 @@
 
     $('.js-message-form').on('submit', function(e) {
       e.preventDefault();
-      $.post('/post', { message: name + ": " + $('.js-message').val()}).done(function() {
+      $.post('/post', { message: name + ": " + $('.js-message').val(), pass: pass }).fail(function() {
+        alert('Your credentials have been invalidated.');
+        window.location = "/";
       });
       $('.js-message').val('');
     });

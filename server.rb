@@ -2,6 +2,7 @@ require 'sinatra'
 require 'pusher'
 require 'slack-notifier'
 
+password = ENV['CURIOUS_PASSWORD']
 slack_client = Slack::Notifier.new ENV['SLACK_INCOMING_URL']
 pusher_client = Pusher::Client.new(
   app_id: '196507',
@@ -11,10 +12,12 @@ pusher_client = Pusher::Client.new(
 )
 
 get '/' do
-  send_file 'views/index.html'
+  return send_file 'views/index.html' if params[:pass] == password
+  send_file 'views/pass.html'
 end
 
 post '/post' do
+  halt 403 unless params[:pass] == password
   pusher_client.trigger(
     'curiosity',
     'new_message',
