@@ -21,3 +21,11 @@ get '/post' do
     message: params[:message])
   slack_client.ping params[:message]
 end
+
+post '/slack' do
+  return if params[:user_name] == 'slackbot'
+  pusher_client.trigger(
+    'curiosity',
+    'new_message',
+    message: "#{params[:user_name]}: #{params[:text]}")
+end
