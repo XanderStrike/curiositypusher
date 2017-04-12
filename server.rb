@@ -6,7 +6,7 @@ password = ENV['CURIOUS_PASSWORD']
 slack_client = Slack::Notifier.new ENV['SLACK_INCOMING_URL']
 pusher_client = Pusher::Client.new(
   app_id: '196507',
-  key: '18d0e1f96d237f08631c',
+  key: 'e36659eb538598ef8460',
   secret: ENV['PUSHER_SECRET'],
   encrypted: true
 )
