@@ -32,7 +32,7 @@
       $('.js-chat-area').scrollTop($('.js-chat-area')[0].scrollHeight);
     }
 
-    var pusher = new Pusher('18d0e1f96d237f08631c', { encrypted: true });
+    var pusher = new Pusher('e36659eb538598ef8460', { encrypted: true, cluster: 'mt1' });
 
     var channel = pusher.subscribe('curiosity');
     channel.bind('new_message', function(data) {
